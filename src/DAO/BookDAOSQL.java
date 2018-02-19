@@ -81,7 +81,7 @@ public class BookDAOSQL implements BookDAO {
         preparedStatement.setInt(1, Integer.valueOf(publication_year));
         ResultSet queryResult = preparedStatement.executeQuery();
         return getIterator(queryResult);
-    }6
+    }
 
     public BookIterator searchByPublishersName(String publisher_name) throws SQLException{
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT ISBN, author, title, publisher," +

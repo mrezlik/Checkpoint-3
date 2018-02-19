@@ -1,6 +1,7 @@
 package view;
 
 import DAO.BookIterator;
+import model.Book;
 
 import java.util.Scanner;
 
@@ -30,6 +31,12 @@ public class View {
         return sc.nextLine();
     }
 
+    public int getIDFromUser(){
+        Scanner sc = new Scanner(System.in);
+        return sc.nextInt();
+    }
+
+
     public void printMessage(String text){
         System.out.println(text);
     }
@@ -51,9 +58,30 @@ public class View {
                 "What do you choose:");
     }
 
+    public void showEditMenu(){
+        System.out.println("In what parameter you want to edit?\n" +
+                "(1) ISBN \n" +
+                "(2) Title\n" +
+                "(3) Author\n" +
+                "(4) Publication year\n" +
+                "(5) Publisher name\n" +
+                "(6) Type\n" +
+                "(7) Price\n" +
+                "(8) Back\n" +
+                "What do you choose:");
+    }
+
+
     public String getSearchWord(){
         printMessage("What world do you search?");
         return getUserInput();
     }
+
+//    public void chooseBook(BookIterator books){
+//        while(books.hasNext()) {
+//            Book book = books.next();
+//            if(book.)
+//        }
+//    }
 }
 

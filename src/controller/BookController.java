@@ -2,14 +2,16 @@ package controller;
 
 import DAO.BookDAO;
 import DAO.BookDAOSQL;
+import model.Book;
 import view.View;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 
 public class BookController {
 
-    View view = new View();
-    BookDAO bookDAO = new BookDAOSQL();
+    private View view = new View();
+    private BookDAO bookDAO = new BookDAOSQL();
 
     public void run() throws SQLException{
         boolean is_running = true;
@@ -45,14 +47,37 @@ public class BookController {
         }
     }
 
-    public void addNewBook(){
-        view.printMessage("In progress");
+    private void addNewBook() throws SQLException{
+        try {
+            view.printMessage("Please enter ISBN");
+            String ISBN = view.getUserInput();
+            view.printMessage("Please enter author ID");
+            int authorID = view.getIDFromUser();
+            view.printMessage("Please enter title");
+            String title = view.getUserInput();
+            view.printMessage("Please enter publisher id");
+            String publisher = view.getUserInput();
+            view.printMessage("Please enter publication year");
+            int publication_year = view.getIDFromUser();
+            view.printMessage("Please enter price");
+            int price = view.getIDFromUser();
+            view.printMessage("Please enter type id");
+            int type = view.getIDFromUser();
+            Book newBook = new Book(ISBN, authorID, title, publisher, publication_year, price, type);
+            bookDAO.addNewBook(newBook);
+
+        } catch(InputMismatchException e ){
+            view.printMessage("Please enter a valid type!");
+            view.continueCommunicate();
+        }
+
+
     }
 
-    public void editBook(){
-        view.printMessage("In progress");
+    private void editBook() throws SQLException{
+//        view.chooseBook(bookDAO.getAllBooks());
     }
-    public void deleteBook(){
+    private void deleteBook(){
         view.printMessage("In progress");
     }
 
@@ -95,7 +120,7 @@ public class BookController {
         }
     }
 
-    public void seeAllBooks(){
+    private void seeAllBooks(){
         try {
             view.showBooks(bookDAO.getAllBooks());
             view.continueCommunicate();
@@ -104,7 +129,7 @@ public class BookController {
         }
     }
 
-    public void searchByAuthor() throws SQLException{
+    private void searchByAuthor() throws SQLException{
         String word = view.getSearchWord();
         view.showBooks(bookDAO.searchByAuthor(word));
      }
