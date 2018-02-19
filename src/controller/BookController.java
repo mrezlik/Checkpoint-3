@@ -75,7 +75,40 @@ public class BookController {
     }
 
     private void editBook() throws SQLException{
-//        view.chooseBook(bookDAO.getAllBooks());
+        view.showBooks(bookDAO.getAllBooks());
+        String word;
+        try {
+            Book book = view.chooseBook(bookDAO.getAllBooks());
+            view.showEditMenu();
+            String edit_option = view.getUserInput();
+            switch(edit_option){
+                case "1":
+                    word = view.getUserInput();
+                    book.setISBN(word);
+                    break;
+                case "2":
+                    word = view.getUserInput();
+                    book.setTitle(word);
+                    break;
+                case "3":
+                    int year = view.getPublicationYear();
+                    book.setPublicationYear(year);
+                    break;
+                case "4":
+                    int price = view.getPrice();
+                    book.setPrice(price);
+                    break;
+                case "5":
+                    break;
+                default:
+                    view.printMessage("Something wrong!");
+                    break;
+            }
+            bookDAO.updateBook(book);
+        }catch(InputMismatchException e){
+            view.printMessage("Something wrong! Try again!");
+        }
+
     }
 
 

@@ -52,7 +52,7 @@ public class Book {
         return publisher;
     }
 
-    public void setPublication_year(int publication_year) {
+    public void setPublicationYear(int publication_year) {
         this.publication_year = publication_year;
     }
 

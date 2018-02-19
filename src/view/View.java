@@ -63,12 +63,9 @@ public class View {
         System.out.println("In what parameter you want to edit?\n" +
                 "(1) ISBN \n" +
                 "(2) Title\n" +
-                "(3) Author\n" +
-                "(4) Publication year\n" +
-                "(5) Publisher name\n" +
-                "(6) Type\n" +
-                "(7) Price\n" +
-                "(8) Back\n" +
+                "(3) Publication year\n" +
+                "(4) Price\n" +
+                "(5) Back\n" +
                 "What do you choose:");
     }
 
@@ -88,6 +85,16 @@ public class View {
             }
         }
         throw new InputMismatchException();
+    }
+
+    public int getPrice(){
+        Scanner sc = new Scanner(System.in);
+        return sc.nextInt();
+    }
+
+    public int getPublicationYear(){
+        Scanner sc = new Scanner(System.in);
+        return sc.nextInt();
     }
 }
 
