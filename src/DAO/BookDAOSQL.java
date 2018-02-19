@@ -51,8 +51,8 @@ public class BookDAOSQL implements BookDAO {
         PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Books SET ISBN = ?, title = ?, price = ?, publication_year = ? WHERE ISBN = ?");
         preparedStatement.setString(1, book.getISBN());
         preparedStatement.setString(1, book.getTitle());
-        preparedStatement.setString(1, book.getPrice());
-        preparedStatement.setString(1, book.getPublication_year());
+        preparedStatement.setInt(1, book.getPrice());
+        preparedStatement.setInt(1, book.getPublication_year());
 
         preparedStatement.executeUpdate();
     }
