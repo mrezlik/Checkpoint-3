@@ -11,7 +11,7 @@ public class BookController {
     View view = new View();
     BookDAO bookDAO = new BookDAOSQL();
 
-    public void run(){
+    public void run() throws SQLException{
         boolean is_running = true;
         while(is_running) {
             view.showMenu();
@@ -58,26 +58,31 @@ public class BookController {
 
     private void searchInBooks() throws SQLException{
         boolean is_searching = true;
-        view.printMessage("What world do you search?");
-        String world = view.getUserInput();
+
         while(is_searching) {
             view.showSearchMenu();
+            String word;
             String user_choice = view.getUserInput();
             switch(user_choice){
                 case "1":
-                    view.showBooks(bookDAO.searchByISBN(world));
+                    word = view.getSearchWord();
+                    view.showBooks(bookDAO.searchByISBN(word));
                     break;
                 case "2":
-                    view.showBooks(bookDAO.searchByTitle(world));
+                    word = view.getSearchWord();
+                    view.showBooks(bookDAO.searchByTitle(word));
                     break;
                 case "3":
-                    view.showBooks(bookDAO.searchByAuthor(world));
+                    word = view.getSearchWord();
+                    view.showBooks(bookDAO.searchByAuthor(word));
                     break;
                 case "4":
-                    view.showBooks(bookDAO.searchByPublicationYear(world));
+                    word = view.getSearchWord();
+                    view.showBooks(bookDAO.searchByPublicationYear(word));
                     break;
                 case "5":
-                    view.showBooks(bookDAO.searchByPublishersName(world));
+                    word = view.getSearchWord();
+                    view.showBooks(bookDAO.searchByPublishersName(word));
                     break;
                 case "6":
                     is_searching = false;
@@ -99,9 +104,10 @@ public class BookController {
         }
     }
 
-    public void searchByAuthor(){
-        view.printMessage("In progress");
-    }
+    public void searchByAuthor() throws SQLException{
+        String word = view.getSearchWord();
+        view.showBooks(bookDAO.searchByAuthor(word));
+     }
 
 
 }
