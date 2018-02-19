@@ -8,12 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class BookDAO {
+public class BookDAOSQL implements BookDAO {
 
     private DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
     private Connection connection = null;
 
-    public BookDAO(){
+    public BookDAOSQL(){
         connection = databaseConnection.getConnection();
     }
 
@@ -91,7 +91,7 @@ public class BookDAO {
         ResultSet queryResult = preparedStatement.executeQuery();
         return getIterator(queryResult);
     }
-    
+
     private BookIterator getIterator(ResultSet queryResult) throws SQLException{
         ArrayList<Book> books = new ArrayList<>();
 
