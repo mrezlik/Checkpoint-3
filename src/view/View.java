@@ -32,4 +32,10 @@ public class View {
     public void printMessage(String text){
         System.out.println(text);
     }
+
+    public void continueCommunicate(){
+        System.out.println("Press any key to coninue.");
+        Scanner userInput = new Scanner(System.in);
+        userInput.nextLine();
+    }
 }
