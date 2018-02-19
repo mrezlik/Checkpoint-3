@@ -14,5 +14,6 @@ public interface BookDAO {
     BookIterator searchByAuthor(String author) throws SQLException;
     BookIterator searchByPublicationYear(String publication_year) throws SQLException;
     BookIterator searchByPublishersName(String publisher_name) throws SQLException;
+    void updateBook(Book book) throws SQLException;
 
 }

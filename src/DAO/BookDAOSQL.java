@@ -47,6 +47,16 @@ public class BookDAOSQL implements BookDAO {
         preparedStatement.executeUpdate();
     }
 
+    public void updateBook(Book book) throws SQLException{
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Books SET ISBN = ?, title = ?, price = ?, publication_year = ? WHERE ISBN = ?");
+        preparedStatement.setString(1, book.getISBN());
+        preparedStatement.setString(1, book.getTitle());
+        preparedStatement.setString(1, book.getPrice());
+        preparedStatement.setString(1, book.getPublication_year());
+
+        preparedStatement.executeUpdate();
+    }
+
     public BookIterator searchByISBN(String ISBN) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT ISBN, author, title, publisher," +
                 " publication_year, price, type FROM Books " +
