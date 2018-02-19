@@ -12,7 +12,7 @@ public interface BookDAO {
     BookIterator searchByISBN(String ISBN) throws SQLException;
     BookIterator searchByTitle(String title) throws SQLException;
     BookIterator searchByAuthor(String author) throws SQLException;
-    BookIterator searchByPublicationYear(int publication_year) throws SQLException;
+    BookIterator searchByPublicationYear(String publication_year) throws SQLException;
     BookIterator searchByPublishersName(String publisher_name) throws SQLException;
 
 }

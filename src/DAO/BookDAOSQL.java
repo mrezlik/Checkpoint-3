@@ -10,10 +10,10 @@ import java.util.ArrayList;
 
 public class BookDAOSQL implements BookDAO {
 
-    private DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
-    private Connection connection = null;
+    private Connection connection;
 
     public BookDAOSQL(){
+        DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
         connection = databaseConnection.getConnection();
     }
 
@@ -50,8 +50,8 @@ public class BookDAOSQL implements BookDAO {
     public BookIterator searchByISBN(String ISBN) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT ISBN, author, title, publisher," +
                 " publication_year, price, type FROM Books " +
-                "WHERE ISBN = ?;");
-        preparedStatement.setString(1, ISBN);
+                "WHERE ISBN LIKE ?;");
+        preparedStatement.setString(1, "%" + ISBN + "%");
         ResultSet queryResult = preparedStatement.executeQuery();
         return getIterator(queryResult);
     }
@@ -59,8 +59,8 @@ public class BookDAOSQL implements BookDAO {
     public BookIterator searchByTitle(String title) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT ISBN, author, title, publisher," +
                 " publication_year, price, type FROM Books " +
-                "WHERE Title = ?;");
-        preparedStatement.setString(1, title);
+                "WHERE Title LIKE ?;");
+        preparedStatement.setString(1, "%" + title + "%");
         ResultSet queryResult = preparedStatement.executeQuery();
         return getIterator(queryResult);
     }
@@ -68,26 +68,26 @@ public class BookDAOSQL implements BookDAO {
     public BookIterator searchByAuthor(String author) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT ISBN, author, title, publisher," +
                 " publication_year, price, type FROM Books JOIN Authors ON Authors.author_id = author " +
-                "WHERE Authors.name = ? OR Authors.surname = ?;");
-        preparedStatement.setString(1, author);
+                "WHERE Authors.name LIKE ? OR Authors.surname LIKE ?;");
+        preparedStatement.setString(1, "%" + author + "%");
         ResultSet queryResult = preparedStatement.executeQuery();
         return getIterator(queryResult);
     }
 
-    public BookIterator searchByPublicationYear(int publication_year) throws SQLException{
+    public BookIterator searchByPublicationYear(String publication_year) throws SQLException{
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT ISBN, author, title, publisher," +
                 " publication_year, price, type FROM Books " +
-                "WHERE publication_year = ?;");
-        preparedStatement.setInt(1, publication_year);
+                "WHERE publication_year LIKE ?;");
+        preparedStatement.setInt(1, Integer.valueOf(publication_year));
         ResultSet queryResult = preparedStatement.executeQuery();
         return getIterator(queryResult);
-    }
+    }6
 
     public BookIterator searchByPublishersName(String publisher_name) throws SQLException{
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT ISBN, author, title, publisher," +
                 " publication_year, price, type FROM Books JOIN Publishers ON Publishers.publisher_id = publisher " +
                 "WHERE Publishers.name = ?");
-        preparedStatement.setString(1, publisher_name);
+        preparedStatement.setString(1, "%" + publisher_name + "%");
         ResultSet queryResult = preparedStatement.executeQuery();
         return getIterator(queryResult);
     }
