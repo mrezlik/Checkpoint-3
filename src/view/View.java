@@ -3,6 +3,7 @@ package view;
 import DAO.BookIterator;
 import model.Book;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class View {
@@ -77,11 +78,16 @@ public class View {
         return getUserInput();
     }
 
-//    public void chooseBook(BookIterator books){
-//        while(books.hasNext()) {
-//            Book book = books.next();
-//            if(book.)
-//        }
-//    }
+    public Book chooseBook(BookIterator books){
+        printMessage("Please enter a ISBN number");
+        String ISBN = getUserInput();
+        while(books.hasNext()) {
+            Book book = books.next();
+            if(book.getISBN().equals(ISBN)){
+                return book;
+            }
+        }
+        throw new InputMismatchException();
+    }
 }
 
