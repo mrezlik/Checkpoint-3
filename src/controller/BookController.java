@@ -77,8 +77,16 @@ public class BookController {
     private void editBook() throws SQLException{
 //        view.chooseBook(bookDAO.getAllBooks());
     }
-    private void deleteBook(){
-        view.printMessage("In progress");
+
+
+    private void deleteBook() throws SQLException{
+        view.showBooks(bookDAO.getAllBooks());
+        try {
+            Book book = view.chooseBook(bookDAO.getAllBooks());
+            bookDAO.deleteBook(book);
+        }catch(InputMismatchException e){
+            view.printMessage("This book doesn't exist!");
+        }
     }
 
     private void searchInBooks() throws SQLException{
