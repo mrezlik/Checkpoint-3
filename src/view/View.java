@@ -7,8 +7,9 @@ import java.util.Scanner;
 public class View {
 
     public void showBooks(BookIterator books){
+        int i=0;
         while(books.hasNext()){
-            System.out.println(books.next());
+            System.out.format("%d. %s \n", ++i, books.next());
         }
     }
 
@@ -38,4 +39,21 @@ public class View {
         Scanner userInput = new Scanner(System.in);
         userInput.nextLine();
     }
+
+    public void showSearchMenu(){
+        System.out.println("In what parameter you want to search?\n" +
+                "(1) ISBN \n" +
+                "(2) Title\n" +
+                "(3) Author\n" +
+                "(4) Publication year\n" +
+                "(5) Publisher name\n" +
+                "(6) Back\n" +
+                "What do you choose:");
+    }
+
+    public String getSearchWord(){
+        printMessage("What world do you search?");
+        return getUserInput();
+    }
 }
+
