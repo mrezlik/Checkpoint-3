@@ -76,4 +76,8 @@ public class Book {
         return type;
     }
 
+    public String toString() {
+        return String.format("ISBN: %s, author: %d, title: %s, publisher: %s, publication_year: %d, price: %d, type: %d",
+                getISBN(), getAuthor(), getTitle(), getPublisher(), getPublication_year(), getPrice(), getType());
+    }
 }
