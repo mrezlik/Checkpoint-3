@@ -1,10 +1,13 @@
 package controller;
 
+import DAO.BookDAO;
+import DAO.BookDAOSQL;
 import view.View;
 
 public class BookController {
 
     View view = new View();
+    BookDAO bookDAO = new BookDAOSQL();
 
     public void run(){
         boolean is_running = true;
@@ -56,7 +59,12 @@ public class BookController {
     }
 
     public void seeAllBooks(){
-        view.printMessage("In progress");
+        try {
+            view.showBooks(bookDAO.getAllBooks());
+            view.continueCommunicate();
+        }catch(Exception e){
+            view.printMessage("Something wrong!");
+        }
     }
 
     public void searchByAuthor(){
