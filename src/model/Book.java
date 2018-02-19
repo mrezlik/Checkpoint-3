@@ -75,4 +75,5 @@ public class Book {
     public int getType() {
         return type;
     }
+
 }
