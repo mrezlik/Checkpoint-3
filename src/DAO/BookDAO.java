@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class BookDAO {
 
@@ -19,8 +18,8 @@ public class BookDAO {
         connection = databaseConnection.getConnection();
     }
 
-    public void getAllBooks() throws SQLException{
-        List<Book> books = new ArrayList<>();
+    public Iterator getAllBooks() throws SQLException{
+        ArrayList<Book> books = new ArrayList<>();
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT ISBN, Authors.name as 'author_name', title, Publishers.name as 'publisher_name'," +
                 " publication_year, price, TypeBooks.type as 'type' FROM Books JOIN Authors ON Books.author = Authors.author_id" +
                 " JOIN Publishers ON Books.publisher = Publishers.publisher_id " +
@@ -38,7 +37,7 @@ public class BookDAO {
             Book newBook = new Book(ISBN, author, title, publisher, publication_year, price, type);
             books.add(newBook);
         }
-
+        return new BookIterator(books);
     }
 
 
